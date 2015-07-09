@@ -3,10 +3,17 @@ require 'json'
 require 'data_mapper'
 
 get '/:article_id' do
-  star = Star.first( article_id: params['article_id'] )
+  @article_id = params['article_id']
+  star = Star.first( article_id: @article_id )
   @count = star ? star.count : 0
-  puts @count
-  erb params['article_id'].to_sym
+  erb @article_id.to_sym
+end
+
+get '/' do
+  @article_id = '20150618231030'
+  star = Star.first( article_id: @article_id )
+  @count = star ? star.count : 0
+  erb @article_id.to_sym
 end
 
 post '/', provides: :json do
